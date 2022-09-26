@@ -2,8 +2,14 @@ const {Schema,model} = require('mongoose')
 
 const noteSchema= new Schema({
 
-  text:String,
-  imp:Boolean
+  text:{
+    type:String,
+    required:true
+  },
+  imp:{
+    type:Boolean,
+    required:true
+  }
 
 },{
   timestamps:true
