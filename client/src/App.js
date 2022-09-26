@@ -1,109 +1,75 @@
-import { useEffect, useState } from 'react';
-import { createNote, deleteNote, getAllNotes } from '../src/services/notesService';
-import { actions } from './context/notesContext';
-import { useNotesContext } from './hooks/useNotesContext';
-function App() {
+import { useReducer, useRef } from "react";
+import { ACTIONS, notesReducer } from "./reducers/notesReducer";
 
-  const {notes,dispatch} = useNotesContext()
-
-
-  const [note,setNote]=useState('')
-  const[imp,setImp]=useState(false)
-
-  useEffect(()=>{ 
-    
-    getAllNotes()
-    .then(res=>{
-      console.log("The data obtained from the server is",res.data)
-        if(res.data.success){
-           dispatch({
-            type:actions.SET_NOTES,
-            payload:res.data.message
-          })
-        }
-        else{
-          console.error("Error: did not get notes",JSON.stringify(res.data))
-        }
-    })
-    .catch(err=>{
-      console.error("Error getting all notes from server",err.message)
-    })
-
-  },[])
-
-
-  const submitNote=async(event) => {
-       
-    event.preventDefault();
-    
-    const response =await createNote({text:note,imp})
+const Note=({note,dispatch})=>{
    
-    if(!response.data.success) {
-      console.error("Error creating note")
-    }
-    else{
-      console.log("Note created",response.data.message)
+  const onToggle=(id) =>{
+    console.log("The toggle id is",id)
       dispatch({
-        type:actions.CREATE_NOTE,
-        payload:response.data.message
+        type:ACTIONS.TOGGLE_IMPORTANCE,
+        payload:{id}
       })
-    }
-  }  
-  
-  const removeNote =async(id)=>{
-    
-    const response = await deleteNote(id)
-     
-    if(!response.data.success) {
-      console.error('Error deleting note',response.data)
-    }
-    else{
-      console.log("Note deleted",response.data.message)
-      dispatch({
-        type: actions.DELETE_NOTE,
-        payload: id
-      })
-    }
   }
-  
+  const onDelete=(id) =>{
+      dispatch({ 
+        type:ACTIONS.DELETE_NOTE,
+        payload:{id}
+      })
+  }
+
   return (
-    <div className="App">
-      <h1>Notes</h1>
-        <ol>
-      {
-       notes && notes.map(note =>
-        
-       <li id={note._id}>
-          <span> {note.text}</span> <span>{note.imp}</span>
-          <input type='checkbox' checked={note.imp}/>
-          <button onClick={()=>removeNote(note._id)}>Delete</button>
-        </li>)
-      }
-        </ol>
-      <hr/>
-      <form>
-        
-        <h2>New Note</h2>
-        
-        <input
-        type="text"
-          name="note"
-          onChange={({target})=>{setNote(target.value)}}
-          />
-          
-        <input 
-        type="checkbox" 
-        name="checkbox" 
-        onClick={()=>setImp(imp=>!imp)}
-        />
-        
-        <button 
-        name="submit" onClick={submitNote}>
-          Submit 
-        </button>
-      </form>
-    </div>
-  );
+  <li key={note.id}>
+      <h3>{note.text}</h3>
+      <input type="checkbox" 
+      checked={note.important} onChange={()=>{onToggle(note.id)}}
+      />
+
+      <button onClick={()=>{ onDelete(note.id)}}>
+        Delete
+      </button>
+  </li>
+  )
+}
+
+function App() {
+  
+  // const {notes,dispatch} = useNotesContext()
+  const [notes, dispatch] = useReducer(notesReducer,[]);
+   const text=useRef()
+   const imp=useRef()
+   
+   const addNote=(e)=>{
+
+      console.log("add note triggered")
+      e.preventDefault();
+      console.log("text",text.current.value)
+      console.log("important",imp.current.checked)
+      dispatch({
+        type:ACTIONS.CREATE_NOTE,
+        payload:{
+          text:text.current.value,
+          important:imp.current.checked,
+          id:Math.floor(Math.random()*10000000)
+        }
+      })
+
+      text.current.value=''
+      imp.current.checked=false
+
+   }
+   return(
+   <div>
+    <form onSubmit={addNote}>
+      <input ref={text} type="text" placeholder='enter text'/>
+      <input ref={imp} type="checkbox"/>
+      <button >Add Note</button>
+    </form>
+    Notes:
+    <ul>
+      {notes.map(note =><Note dispatch={dispatch} note={note} />)}
+    </ul>
+   </div>)
+
 }
 
 export default App;

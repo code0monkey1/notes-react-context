@@ -5,22 +5,22 @@ export const NotesContext = createContext()
 export const actions={
   SET_NOTES:"SET_NOTES",
   CREATE_NOTE:"CREATE_NOTE",
-  DELETE_NOTE:'DELETE_NOTE'
+  DELETE_NOTE:"DELETE_NOTE"
 } 
 
 export const notesReducer =(state,action) =>{
   
   switch(action.type){
     
-    case 'SET_NOTES':
+    case actions.SET_NOTES:
       return {
          notes:action.payload
       }
-    case 'CREATE_NOTE':
+    case actions.CREATE_NOTE:
       return {
         notes:[...state.notes, action.payload]
       }
-    case 'DELETE_NOTE':
+    case actions.DELETE_NOTE:
        const id=action.payload
        
        return{
@@ -34,9 +34,7 @@ export const notesReducer =(state,action) =>{
 
 export const NotesContextProvider=({children})=>{
   
-  const[state,dispatch] =useReducer(notesReducer,{
-    notes:[]
-  })
+  const[state,dispatch] =useReducer(notesReducer,{notes:[]})
 
 return( 
   <NotesContext.Provider value={{...state,dispatch}} >
