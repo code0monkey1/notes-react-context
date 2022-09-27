@@ -20,3 +20,18 @@ exports.getNotes=async ()=>{
   return notes
 }
 
+exports.updateNote=async (id,note)=>{
+
+  console.log("SERVER: note to be updated: ", 
+  JSON.stringify(note,null,2),
+  "with id: " + id)
+
+  const updatedNote = await Note.findByIdAndUpdate(id,note,{
+            new: true,
+            runValidators: true,
+            context: 'query',
+        })
+
+  return updatedNote
+}
+

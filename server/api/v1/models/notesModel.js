@@ -6,7 +6,7 @@ const noteSchema= new Schema({
     type:String,
     required:true
   },
-  imp:{
+  important:{
     type:Boolean,
     required:true
   }

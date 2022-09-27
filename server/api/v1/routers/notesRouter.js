@@ -8,4 +8,6 @@ router.delete('/:id', notesController.deleteNote)
 
 router.get('/',notesController.getNotes)
 
+router.patch('/:id', notesController.updateNote)
+
 module.exports=router

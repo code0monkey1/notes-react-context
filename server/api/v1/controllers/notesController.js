@@ -59,3 +59,22 @@ exports.getNotes=async (req, res, next) => {
 
   }
 }
+
+
+exports.updateNote=async (req, res, next) => {
+
+  try{
+    const {id}=req.params
+
+    console.log("SERVER: The id of the note",id,"the note body is:",JSON.stringify(req.body,null,2))
+
+    const updateNote = await noteService.updateNote(id,req.body)
+
+    res.status(201).send({success:true, message:updateNote})
+    next()
+  }catch(err){
+
+    console.error("Error while updating notes",err.message)
+    next(err)
+  }
+}

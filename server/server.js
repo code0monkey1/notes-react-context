@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const notes= require('./api/v1/routers/notesRouter')
 const app = express();
 
+const cors= require('cors');
+
 
 mongoose
 .connect(process.env.MONGODB_URL)
@@ -17,7 +19,7 @@ mongoose
    console.error('MongoDb Connection Error')
 })
 
-
+app.use(cors())
 app.use(express.json())
 
 app.use('/note',notes)
