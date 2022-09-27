@@ -5,9 +5,8 @@ export const useNotesContext =()=>{
     
   const context = useContext(NotesContext);
 
-  if(!context){
+  if(!context)
     throw Error('Notes Context should be used within NotesContextProvider')
-  }
-
+  
   return context
 }

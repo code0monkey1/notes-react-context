@@ -105,7 +105,7 @@ function App() {
             text:text.current.value,
             important:imp.current.checked,
         })
-         console.log("Recieved note",JSON.stringify(response.data.message,null,2))
+         console.log("Received note",JSON.stringify(response.data.message,null,2))
        dispatch({
           type:ACTIONS.CREATE_NOTE,
           payload:response.data.message
