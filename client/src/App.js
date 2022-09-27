@@ -44,9 +44,7 @@ const Note=({note,dispatch})=>{
         type:ACTIONS.DELETE_NOTE,
         payload:{id}
       })
-
     }
-    
       catch(err) {
        console.error("Error deleting note: " + err.message)
       }
@@ -59,8 +57,8 @@ const Note=({note,dispatch})=>{
       checked={note.important} onChange={()=>{onToggle(note,note._id)}}
       />
 
-      <button onClick={()=>{ onDelete(note._id)}}>
-        Delete
+      <button style={{margin:"0.5rem"}}className="material-symbols-outlined" onClick={()=>{ onDelete(note._id)}}>
+        favorite
       </button>
   </li>
   )
@@ -91,7 +89,7 @@ function App() {
           console.error("Error fetching notes",error.message)
         })
     
-   },[])
+   },[dispatch])
    
    const addNote=async(e)=>{
 

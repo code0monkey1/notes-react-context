@@ -29,9 +29,11 @@ const updateNote = async(id,modifiedNote)=>{
   
   return updatedNote
 }
-export default {
+const things= {
   getAllNotes,
   deleteNote,
   createNote,
   updateNote
 }
+
+export default things
