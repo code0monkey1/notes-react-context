@@ -6,6 +6,7 @@
   }
 
   export const notesReducer = (state,action) => {
+    
       console.log("The action is ", action.type)
 
     switch (action.type) {

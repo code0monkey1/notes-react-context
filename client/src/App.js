@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { useNotesContext } from './hooks/useNotesContext';
+import { useContext, useEffect, useRef } from "react";
+import { NotesContext } from "./context/notesContext";
 import { ACTIONS } from "./reducers/notesReducer";
 import notesService from "./services/notesService";
 
@@ -26,8 +26,6 @@ const Note=({note,dispatch})=>{
       
     }
     catch(err) {console.error("Error while deleting note",err.message)}
-
-    
     
   }
   const onDelete=async(id) =>{
@@ -66,7 +64,7 @@ const Note=({note,dispatch})=>{
 
 function App() {
   
-  const {notes,dispatch} = useNotesContext()
+   const {notes,dispatch} = useContext(NotesContext);
   
   console.log("The notes are",notes)
   
@@ -99,10 +97,12 @@ function App() {
       console.log("important",imp.current.checked)
       
       try{
-        const response= await notesService.createNote({
-            text:text.current.value,
-            important:imp.current.checked,
-        })
+        const response= await notesService
+                .createNote({
+                        text:text.current.value,
+                        important:imp.current.checked,
+                    })
+                    
          console.log("Received note",JSON.stringify(response.data.message,null,2))
        dispatch({
           type:ACTIONS.CREATE_NOTE,
