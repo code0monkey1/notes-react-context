@@ -10,8 +10,6 @@ exports.createNote=async (req,res,next) => {
         
       res.status(200).json({success:true,message:savedNote})
 
-      next()
-
      }catch(err){
 
        console.error("Note not saved",err.message)
@@ -35,8 +33,7 @@ exports.deleteNote=async(req, res, next)=>{
     }
 
     res.status(200).send({success: true,message:deletedNote})
-    
-    next()
+  
 
   }catch(err){
       console.error("Error while deleting note",err.message)
@@ -50,8 +47,6 @@ exports.getNotes=async (req, res, next) => {
     const notes = await noteService.getNotes()
 
     res.status(200).send({success:true, message:notes})
-
-    next()
     
   }catch(err){
      console.error('Error while reading notes',err.message)
@@ -71,7 +66,7 @@ exports.updateNote=async (req, res, next) => {
     const updateNote = await noteService.updateNote(id,req.body)
 
     res.status(201).send({success:true, message:updateNote})
-    next()
+
   }catch(err){
 
     console.error("Error while updating notes",err.message)
