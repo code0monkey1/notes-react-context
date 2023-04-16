@@ -8,10 +8,10 @@ export const NotesContextProvider=({children})=>{
   
   const[state,dispatch] =useReducer(notesReducer,{notes:[]})
 
-  return( 
-    <NotesContext.Provider value={{...state,dispatch}} >
-      {children}
-    </NotesContext.Provider>
+return( 
+  <NotesContext.Provider value={{...state,dispatch}} >
+    {children}
+  </NotesContext.Provider>
 )
 }
 
