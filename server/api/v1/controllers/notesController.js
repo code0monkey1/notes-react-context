@@ -1,5 +1,10 @@
 const noteService = require('../services/noteService')
-
+/**
+ * 
+ * @param {Request} req 
+ * @param {Response} res 
+ * @param {function} next 
+ */
 exports.createNote=async (req,res,next) => {
     
      try{
