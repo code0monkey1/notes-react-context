@@ -1,9 +1,9 @@
 const noteService = require('../services/noteService')
 /**
  * 
- * @param {Request} req 
- * @param {Response} res 
- * @param {function} next 
+ * @param {Object} req 
+ * @param {Object} res 
+ * @param {Function} next 
  */
 exports.createNote=async (req,res,next) => {
     
@@ -23,7 +23,13 @@ exports.createNote=async (req,res,next) => {
      }
 
 }
-
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 exports.deleteNote=async(req, res, next)=>{
 
   const {id}=req.params
