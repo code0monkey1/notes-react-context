@@ -26,11 +26,12 @@ exports.createNote=async (req,res,next) => {
 
 }
 /**
- * 
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
- * @returns 
+ * Creates a new note.
+ * @async
+ * @function createNote
+ * @param {import('express').Request} req - The request object.
+ * @param {import('express').Response} res - The response object.
+ * @param {import('express').NextFunction} next - The next middleware function.
  */
 exports.deleteNote=async(req, res, next)=>{
 
@@ -53,7 +54,14 @@ exports.deleteNote=async(req, res, next)=>{
       next(err)
   }
 }
-
+/**
+ * Creates a new note.
+ * @async
+ * @function createNote
+ * @param {import('express').Request} req - The request object.
+ * @param {import('express').Response} res - The response object.
+ * @param {import('express').NextFunction} next - The next middleware function.
+ */
 exports.getNotes=async (req, res, next) => {
     
   try{
@@ -68,7 +76,14 @@ exports.getNotes=async (req, res, next) => {
   }
 }
 
-
+/**
+ * Creates a new note.
+ * @async
+ * @function createNote
+ * @param {import('express').Request} req - The request object.
+ * @param {import('express').Response} res - The response object.
+ * @param {import('express').NextFunction} next - The next middleware function.
+ */
 exports.updateNote=async (req, res, next) => {
 
   try{
