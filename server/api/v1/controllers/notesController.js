@@ -1,9 +1,11 @@
 const noteService = require('../services/noteService')
 /**
- * 
- * @param {Object} req 
- * @param {Object} res 
- * @param {Function} next 
+ * Creates a new note.
+ * @async
+ * @function createNote
+ * @param {import('express').Request} req - The request object.
+ * @param {import('express').Response} res - The response object.
+ * @param {import('express').NextFunction} next - The next middleware function.
  */
 exports.createNote=async (req,res,next) => {
     
